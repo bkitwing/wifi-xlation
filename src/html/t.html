@@ -12,7 +12,7 @@
         <meta http-equiv="pragma" content="no-cache" />
 
         <title>Translation Web Client</title>
-        <link rel="stylesheet" type="text/css" href="css/player1.css?v=6">
+        <link rel="stylesheet" type="text/css" href="css/player.css?v=6">
 
 
         <script type="text/javascript" src="js/adapter.min.js" ></script>
@@ -23,33 +23,30 @@
     </head>
     <body class="body">
     <div class="page">
-        <h1>Welcome to </h1>
-        <h1>Brahma Kumaris</h1>
-        <h2>Diamond Hall</h2>
         <table class="splitter">
             <tbody>
                 <tr class="splitter">
                     <td class="splitter" id="panelRx">
                         <table class="rx panelHeightFull" id="tableRx">
                             <tbody>
-                                <tr class="rx"><td class="rx dropdown-container">
+                                <tr class="rx"><td class="rx">
                                     <div class="rx dropdown">
-                                        <!-- <button onclick="chSelect();" class="rx dropbtn" id="chSelectBtn"><div id="listenButton">Select</div></button> -->
+                                        <button onclick="chSelect();" class="rx dropbtn" id="chSelectBtn"><div id="listenButton">Select</div></button>
                                         <div id="chSelectList" class="dropdown-content">
                                         </div>
                                     </div>
-                                <!-- <tr class="rx"><td class="rx">
+                                <tr class="rx"><td class="rx">
                                     <div class="rx chName chNameNormal" id="chName">....</div>
-                                </td></tr> -->
+                                </td></tr>
 
-                                <!-- <tr class="rx stat"><td class="rx">
+                                <tr class="rx stat"><td class="rx">
                                     <div class="rx stat" id="stat">
                                     ----
                                     </div>
-                                </td></tr> -->
-                                <!-- <tr class="rx"><td class="rx">
+                                </td></tr>
+                                <tr class="rx"><td class="rx">
                                     <div class="rx lampStopped" id="vidDiv">
-                                        Video can be used to keep the display on. Unfortunately some phones stop playing audio consistently when the screen is off
+                                        <!-- Video can be used to keep the display on. Unfortunately some phones stop playing audio consistently when the screen is off -->
                                         <video class="greyVid" loop  disableRemotePlayback playsinline id="playVid">
                                             <source src="media/green.m4v" type="video/mp4">
                                         </video>
@@ -57,12 +54,12 @@
                                     <div class="rx lampStopped" id="imgDiv">
                                         <img class="greyVid" src="img/green.png" id="playImg">
                                     </div>
-                                </td></tr> -->
-                                <!-- <tr class="rx"><td class="rx">
+                                </td></tr>
+                                <tr class="rx"><td class="rx">
                                     <div class="rx">
                                         <button onclick="startStopPlayerClick();" ontouchend="startStopPlayerTouchend();" class="rx startStopBtn" id="startStopButton" disabled>Start</button>
                                     </div>
-                                </td></tr> -->
+                                </td></tr>
                             </tbody>
                         </table>
                     </td>
@@ -121,13 +118,10 @@
                 </tr>
             </tbody>
         </table>
-        <!-- <div class="micDiv" id="micDiv" onclick="toggleTxPanel();">
+        <div class="micDiv" id="micDiv" onclick="toggleTxPanel();">
             <img src="img/mic.svg" id="micImg">
-        </div> -->
+        </div>
         <div class="qrDiv">
-            <button class="qrBtn" id="refreshBtn" onclick="refreshPage();">
-                <img  src="./img/refresh.png" alt="refresh"/>
-            </button>
             <button class="qrBtn" id="qrBtn" onclick="showQr();">QR</button>
         </div>
         <div id="qrBox" class="qrBox">
