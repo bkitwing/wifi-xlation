@@ -686,9 +686,12 @@ window.onclick = function(event) {
 
 
 function loadAudio () {
-    const body = { "request": "watch", "id": gStatus[channelNumberLookup (localStorage.channel)].id };
-    if (gStreamingHandle) {
-        gStreamingHandle.send({"message": body});
+    console.log("🚀 ~ file: player.js:690 ~ loadAudio ~ localStorage.channel:", localStorage.channel)
+    if(localStorage.channel){
+        const body = { "request": "watch", "id": gStatus[channelNumberLookup (localStorage.channel)].id };
+        if (gStreamingHandle) {
+            gStreamingHandle.send({"message": body});
+        }
     }
 }
 
@@ -701,11 +704,9 @@ function loadSendRoom () {
 }
 
 function startPlay() {
-    console.log("🚀 ~ file: player.js:705 ~ startPlay ~ gPlaying:", gPlaying)
     if (!gPlaying) {
         loadAudio();
         const vidPlayer = document.getElementById('playVid');
-        console.log("🚀 ~ file: player.js:707 ~ startPlay ~ vidPlayer:", vidPlayer)
         if (vidPlayer && gSettings.videoScreenKeeperRx) {
             vidPlayer.play();
         }
@@ -714,7 +715,6 @@ function startPlay() {
             silentPlayer.play();
         }
         gPlaying = true;
-        console.log("🚀 ~ file: player.js:715 ~ startPlay ~ gPlaying:", gPlaying)
         updateDisplay();
     }
 }
@@ -751,14 +751,14 @@ function stopPlay() {
     const body = { "request": "stop" };
     gStreamingHandle.send({"message": body});
     gStreamingHandle.hangup();
-    const vidPlayer = document.getElementById('playVid');
-    if (vidPlayer) {
-        vidPlayer.pause();
-    }
-    const silentPlayer = document.getElementById('silence');
-    if (silentPlayer && !silentPlayer.paused) {
-        silentPlayer.pause();
-    }
+    // const vidPlayer = document.getElementById('playVid');
+    // if (vidPlayer) {
+    //     vidPlayer.pause();
+    // }
+    // const silentPlayer = document.getElementById('silence');
+    // if (silentPlayer && !silentPlayer.paused) {
+    //     silentPlayer.pause();
+    // }
     updateDisplay();
 }
 function stopSend() {
