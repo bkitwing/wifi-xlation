@@ -13,7 +13,7 @@ function dispUpdate () {
     let qrDiv = document.getElementById("qrcode");
     qrDiv.innerHTML = "";
     new QRCode(qrDiv, gBaseURL + gPath);
-    document.getElementById("urlSpan").innerHTML = gBaseURL + gPath;
+    // document.getElementById("urlSpan").innerHTML = gBaseURL + gPath;
 }
 
 function pathMonitor () {

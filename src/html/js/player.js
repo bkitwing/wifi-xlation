@@ -531,18 +531,16 @@ function updateDisplay() {
             validTx = gStatus[channel].validTx;
         }
 
-        const isCurrentChannelPlaying = name === localStorage.channel
         if (status) {
             listHtml += "<a href=\"#\"" +
             " class=\"chNameNormal\"" +
-            " id=" + name +
             " onclick=\"onclickChannel(" + channel + ");\"" +
             " ontouchend=\"ontouchendChannel(" + channel + ");\"" +
-            ">" + "<img src="+ `${isCurrentChannelPlaying?'../img/pause.png':'../img/play.png'}` + " alt='play' class='play' id='img-" + name +"' />" + name + "</a>\n";
-        } 
-        // else {
-        //     listHtml += "<a href=\"#\" class=\"disabled chNameNormal\">" + name + "</a>\n";
-        // }
+            ">" + name + "</a>\n";
+        } else {
+            listHtml += "<a href=\"#\" class=\"disabled chNameNormal\">" + name + "</a>\n";
+        }
+
         if (validTx) {
             listHtmlTx +="<a href=\"#\"" +
             " class=\"" + ((freeTx)?"chNameNormal":"chNameBusy") + "\"" +
@@ -554,23 +552,22 @@ function updateDisplay() {
         }
 
         if (name == localStorage.channel) {
-            // img.setAttribute("src", "../img/pause.png")
-            // const chNameId = document.getElementById('chName');
-            // const startStopButtonId = document.getElementById('startStopButton');
-            // // chNameId.innerHTML = name.replaceAll(" ", "<br />");
-            // // classSet('chName', 'chNameDead', !status);
-            // if (gSettings.videoScreenKeeperRx) {
-            //     classSet('playVid', 'greyVid', !status);
-            // } else {
-            //     classSet('playImg', 'greyVid', !status);
-            // }
-            // if (status) {
-            //     startStopButtonId.innerText = LANG[gLang][(gPlayIntention)?'stop':'start'];
-            //    startStopButtonId.disabled = false;
-            // } else {
-            //     startStopButtonId.innerText = LANG[gLang][(gPlayIntention)?'stop':'start'];
-            //     startStopButtonId.disabled = !gPlayIntention;
-            // }
+            const chNameId = document.getElementById('chName');
+            const startStopButtonId = document.getElementById('startStopButton');
+            chNameId.innerHTML = name.replaceAll(" ", "<br />");
+            classSet('chName', 'chNameDead', !status);
+            if (gSettings.videoScreenKeeperRx) {
+                classSet('playVid', 'greyVid', !status);
+            } else {
+                classSet('playImg', 'greyVid', !status);
+            }
+            if (status) {
+                startStopButtonId.innerText = LANG[gLang][(gPlayIntention)?'stop':'start'];
+               startStopButtonId.disabled = false;
+            } else {
+                startStopButtonId.innerText = LANG[gLang][(gPlayIntention)?'stop':'start'];
+                startStopButtonId.disabled = !gPlayIntention;
+            }
 
         }
         if (name == localStorage.channelTx) {
@@ -597,22 +594,22 @@ function updateDisplay() {
     }
     document.getElementById('chSelectList').innerHTML = listHtml;
     document.getElementById('chSelectListTx').innerHTML = listHtmlTx;
-    // document.getElementById('chSelectBtn').innerText = LANG[gLang].select;
+    document.getElementById('chSelectBtn').innerText = LANG[gLang].select;
     document.getElementById('chSelectBtnTx').innerText = LANG[gLangTx].select;
     document.getElementById('chSelectBtnTx').disabled = gSending;
     document.getElementById('stopButtonTx').innerText = LANG[gLangTx].stop;
     document.getElementById('passFailBox').innerHTML = LANG[gLangTx].unauthorised;
     document.getElementById('passOKButton').innerText = LANG[gLangTx].ok;
     document.getElementById('passCancelButton').innerText = LANG[gLangTx].cancel;
-    // document.getElementById('stat').innerText = "";
+    document.getElementById('stat').innerText = "";
 
-    // classSet('vidDiv', 'hideItem', !gSettings.videoScreenKeeperRx);
-    // classSet('imgDiv', 'hideItem', gSettings.videoScreenKeeperRx);
+    classSet('vidDiv', 'hideItem', !gSettings.videoScreenKeeperRx);
+    classSet('imgDiv', 'hideItem', gSettings.videoScreenKeeperRx);
 
-    // classSet('vidDiv', 'lampStopped', !gPlaying);
-    // classSet('vidDiv', 'lampStarted', gPlaying);
-    // classSet('imgDiv', 'lampStopped', !gPlaying);
-    // classSet('imgDiv', 'lampStarted', gPlaying);
+    classSet('vidDiv', 'lampStopped', !gPlaying);
+    classSet('vidDiv', 'lampStarted', gPlaying);
+    classSet('imgDiv', 'lampStopped', !gPlaying);
+    classSet('imgDiv', 'lampStarted', gPlaying);
 
 
     classSet('vidTxDiv', 'hideItem', !gSettings.videoScreenKeeperTx);
@@ -686,11 +683,9 @@ window.onclick = function(event) {
 
 
 function loadAudio () {
-    if(localStorage.channel){
-        const body = { "request": "watch", "id": gStatus[channelNumberLookup (localStorage.channel)].id };
-        if (gStreamingHandle) {
-            gStreamingHandle.send({"message": body});
-        }
+    const body = { "request": "watch", "id": gStatus[channelNumberLookup (localStorage.channel)].id };
+    if (gStreamingHandle) {
+        gStreamingHandle.send({"message": body});
     }
 }
 
@@ -750,14 +745,14 @@ function stopPlay() {
     const body = { "request": "stop" };
     gStreamingHandle.send({"message": body});
     gStreamingHandle.hangup();
-    // const vidPlayer = document.getElementById('playVid');
-    // if (vidPlayer) {
-    //     vidPlayer.pause();
-    // }
-    // const silentPlayer = document.getElementById('silence');
-    // if (silentPlayer && !silentPlayer.paused) {
-    //     silentPlayer.pause();
-    // }
+    const vidPlayer = document.getElementById('playVid');
+    if (vidPlayer) {
+        vidPlayer.pause();
+    }
+    const silentPlayer = document.getElementById('silence');
+    if (silentPlayer && !silentPlayer.paused) {
+        silentPlayer.pause();
+    }
     updateDisplay();
 }
 function stopSend() {
@@ -812,7 +807,7 @@ function ontouchendStartTx() {
 }
 
 function channelEnact (channel) {
-    // vanishDropdown("dropdown-content");
+    vanishDropdown("dropdown-content");
     localStorage.channel = channelNameLookup(channel);
     updateDisplay();
     if (gPlaying) {
@@ -841,7 +836,6 @@ function channelEnactTx (channel) {
 function onclickChannel(channel) {
     if (!mobileAndTabletcheck()) {
         channelEnact(channel);
-        startStopPlayerClick()
     }
 }
 function onclickChannelTx(channel) {
@@ -853,7 +847,6 @@ function onclickChannelTx(channel) {
 function ontouchendChannel(channel) {
     if (mobileAndTabletcheck() && !gUserHasScrolled) {
         channelEnact(channel);
-        startStopPlayerTouchend()
     }
     gUserHasScrolled = false;
 }
@@ -884,7 +877,7 @@ function startStopPlayerClick() {
 }
 
 function startStopPlayerTouchend() {
-    if (mobileAndTabletcheck()) {
+    if (mobileAndTabletcheck() && !document.getElementById('startStopButton').disabled) {
         clickPlayerEnact();
     }
 }
@@ -1060,8 +1053,4 @@ function passCancelTouchend() {
     if (mobileAndTabletcheck()) {
         passCancel();
     }
-}
-
-function refreshPage(){
-    window.location.reload()
 }

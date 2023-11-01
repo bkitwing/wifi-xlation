@@ -531,7 +531,7 @@ function updateDisplay() {
             validTx = gStatus[channel].validTx;
         }
 
-        const isCurrentChannelPlaying = name === localStorage.channel
+        const isCurrentChannelPlaying = name === localStorage.channel && status && gPlaying
         if (status) {
             listHtml += "<a href=\"#\"" +
             " class=\"chNameNormal\"" +
@@ -574,25 +574,25 @@ function updateDisplay() {
 
         }
         if (name == localStorage.channelTx) {
-            const chNameId = document.getElementById('chNameTx');
-            const startMuteButtonId = document.getElementById('startMuteButtonTx');
-            const startMuteButtonTextEng = (gMuteIntention)?"unmute":((gSendIntention)?'mute':'broadcast');
-            const startMuteButtonText = LANG[gLang][startMuteButtonTextEng];
-            chNameId.innerHTML = name.replaceAll(" ", "<br />");
-            classSet('chNameTx', 'chNameDead', !validTx);
-            classSet('sendingVidOn', 'greyVid', !validTx);
-            classSet('sendingVidMute', 'greyVid', !validTx);
-            classSet('sendingImgOn', 'greyVid', !validTx);
-            classSet('sendingImgMute', 'greyVid', !validTx);
-            if (validTx) {
-                classSet('chNameTx', 'chNameBusy', !freeTx);
-                startMuteButtonId.innerText = startMuteButtonText;
-                startMuteButtonId.disabled = false;
-            } else {
-                classOut('chNameTx', 'chNameBusy');
-                startMuteButtonId.innerText = LANG[gLang][(gSendIntention)?'mute':'broadcast'];
-                startMuteButtonId.disabled = !gSendIntention;
-            }
+            // const chNameId = document.getElementById('chNameTx');
+            // const startMuteButtonId = document.getElementById('startMuteButtonTx');
+            // const startMuteButtonTextEng = (gMuteIntention)?"unmute":((gSendIntention)?'mute':'broadcast');
+            // const startMuteButtonText = LANG[gLang][startMuteButtonTextEng];
+            // chNameId.innerHTML = name.replaceAll(" ", "<br />");
+            // classSet('chNameTx', 'chNameDead', !validTx);
+            // classSet('sendingVidOn', 'greyVid', !validTx);
+            // classSet('sendingVidMute', 'greyVid', !validTx);
+            // classSet('sendingImgOn', 'greyVid', !validTx);
+            // classSet('sendingImgMute', 'greyVid', !validTx);
+            // if (validTx) {
+            //     classSet('chNameTx', 'chNameBusy', !freeTx);
+            //     startMuteButtonId.innerText = startMuteButtonText;
+            //     startMuteButtonId.disabled = false;
+            // } else {
+            //     classOut('chNameTx', 'chNameBusy');
+            //     startMuteButtonId.innerText = LANG[gLang][(gSendIntention)?'mute':'broadcast'];
+            //     startMuteButtonId.disabled = !gSendIntention;
+            // }
         }
     }
     document.getElementById('chSelectList').innerHTML = listHtml;
@@ -615,25 +615,25 @@ function updateDisplay() {
     // classSet('imgDiv', 'lampStarted', gPlaying);
 
 
-    classSet('vidTxDiv', 'hideItem', !gSettings.videoScreenKeeperTx);
-    classSet('imgTxDiv', 'hideItem', gSettings.videoScreenKeeperTx);
+    // classSet('vidTxDiv', 'hideItem', !gSettings.videoScreenKeeperTx);
+    // classSet('imgTxDiv', 'hideItem', gSettings.videoScreenKeeperTx);
 
-    classSet('vidOnTx', 'hideItem', gMuteIntention);
-    classSet('vidOnTx', 'lampStopped', !gSending);
-    classSet('vidOnTx', 'lampStartedTx', gSending);
-    classSet('vidMuteTx', 'hideItem', !gMuteIntention);
-    classSet('vidMuteTx', 'lampStopped', !gSending);
-    classSet('vidMuteTx', 'lampStartedTx', gSending);
-    classSet('imgOnTx', 'hideItem', gMuteIntention);
-    classSet('imgOnTx', 'lampStopped', !gSending);
-    classSet('imgOnTx', 'lampStartedTx', gSending);
-    classSet('imgMuteTx', 'hideItem', !gMuteIntention);
-    classSet('imgMuteTx', 'lampStopped', !gSending);
-    classSet('imgMuteTx', 'lampStartedTx', gSending);
+    // classSet('vidOnTx', 'hideItem', gMuteIntention);
+    // classSet('vidOnTx', 'lampStopped', !gSending);
+    // classSet('vidOnTx', 'lampStartedTx', gSending);
+    // classSet('vidMuteTx', 'hideItem', !gMuteIntention);
+    // classSet('vidMuteTx', 'lampStopped', !gSending);
+    // classSet('vidMuteTx', 'lampStartedTx', gSending);
+    // classSet('imgOnTx', 'hideItem', gMuteIntention);
+    // classSet('imgOnTx', 'lampStopped', !gSending);
+    // classSet('imgOnTx', 'lampStartedTx', gSending);
+    // classSet('imgMuteTx', 'hideItem', !gMuteIntention);
+    // classSet('imgMuteTx', 'lampStopped', !gSending);
+    // classSet('imgMuteTx', 'lampStartedTx', gSending);
     
-    document.getElementById('stopButtonTx').style.visibility = (gSendIntention)?"visible":"hidden";
-    classSet('micDiv', 'hideItem', gHideMic);
-    classSet('micImg', 'iconDisabled', gSendIntention);
+    // document.getElementById('stopButtonTx').style.visibility = (gSendIntention)?"visible":"hidden";
+    // classSet('micDiv', 'hideItem', gHideMic);
+    // classSet('micImg', 'iconDisabled', gSendIntention);
     classSet('keyImg', 'iconDisabled', gSendIntention);
 }
 
@@ -870,6 +870,7 @@ function clickPlayerEnact() {
         gPlayIntention = false;
         Janus.debug("Stop on clickPlayerEnact");
         stopPlay();
+        refreshPage()
     } else {
         gPlayIntention = true;
         Janus.debug("Start on clickPlayerEnact");
